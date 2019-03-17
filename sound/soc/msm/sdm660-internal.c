@@ -2813,6 +2813,26 @@ static struct snd_soc_dai_link msm_mi2s_be_dai_links[] = {
 		.platform_name = "msm-pcm-routing",
 #ifdef CONFIG_SND_SOC_TAS2557
 		.codec_name = "tas2557.6-004c",
+		.codec_dai_name = "tas2557 ASI2",
+#else
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-rx",
+#endif
+		.no_pcm = 1,
+		.dpcm_playback = 1,
+		.be_id = MSM_BACKEND_DAI_PRI_MI2S_RX,
+		.be_hw_params_fixup = msm_common_be_hw_params_fixup,
+		.ops = &msm_mi2s_be_ops,
+		.ignore_suspend = 1,
+		.ignore_pmdown_time = 1,
+	},
+	{
+		.name = LPASS_BE_PRI_MI2S_TX,
+		.stream_name = "Primary MI2S Capture",
+		.cpu_dai_name = "msm-dai-q6-mi2s.0",
+		.platform_name = "msm-pcm-routing",
+#ifdef CONFIG_SND_SOC_TAS2557
+		.codec_name = "tas2557.6-004c",
 		.codec_dai_name = "tas2557 ASI1",
 #elif defined(CONFIG_SND_SOC_MAX98937)
 		.codec_name = "max98927",
